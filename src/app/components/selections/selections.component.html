@@ -1,0 +1,28 @@
+<app-search-selections [choicese] = "choicese">
+    </app-search-selections>
+<table align="center">
+  <thead>
+    <tr>
+      <td>No</td>
+      <td>会社名</td>
+      <td>応募時期</td>
+      <td>状況</td>
+      <td>応募方法</td>
+      <td>次の面接日</td>
+      <td>履歴書パスワード</td>
+      <td>備考</td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let selection of selections; let i=index">
+      <td>{{ i + 1 }}</td>
+      <td>{{ selection.company_name }}</td>
+      <td>{{ selection.company_name }}</td>
+      <td>{{ selection.company_name }}</td>
+      <td>{{ selection.company_name }}</td>
+      <td>{{ selection.next_appointment }}</td>
+      <td>未実装</td>
+      <td>{{ selection.remarks }}</td>
+    </tr>
+  </tbody>
+</table>

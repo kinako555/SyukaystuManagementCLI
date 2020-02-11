@@ -1,4 +1,4 @@
 export class SelectionStatus {
-	"id"  : string;
-	"name": string;
+	id  : number;
+	name: string;
 }

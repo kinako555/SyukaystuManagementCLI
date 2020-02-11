@@ -21,7 +21,7 @@ export class MyHttpService {
   ) { }
 
   get_initialize_values(): Observable<any> {
-    return this.http.get<any>(HOST_URI)
+    return this.http.get(HOST_URI,HTTP_OPTIONS)
       .pipe(
         retry(3),
         catchError(this.handleError)

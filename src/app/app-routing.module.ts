@@ -1,8 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
+import { SelectionsComponent } from './components/selections/selections.component';
+
 const routes: Routes = [
-	{ path: '', redirectTo: '/app', pathMatch: 'full' }
+	{ path: '', redirectTo: '/selections', pathMatch: 'full' },
+	{ path: 'selections', component: SelectionsComponent }
+
 ];
 
 @NgModule({

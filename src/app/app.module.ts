@@ -4,14 +4,16 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-import { SelectionsComponent } from './selections/selections.component';
+import { SelectionsComponent } from './components/selections/selections.component';
 
 import { MyHttpService } from "./servicese/my-http.service";
+import { SearchSelectionsComponent } from './components/search-selections/search-selections.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    SelectionsComponent
+    SelectionsComponent,
+    SearchSelectionsComponent
   ],
   imports: [
     BrowserModule,
