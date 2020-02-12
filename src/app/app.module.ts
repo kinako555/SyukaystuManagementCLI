@@ -7,6 +7,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { SelectionsComponent } from './components/selections/selections.component';
 
 import { MyHttpService } from "./servicese/my-http.service";
+import { ModelService } from "./servicese/model.service";
+
 import { SearchSelectionsComponent } from './components/search-selections/search-selections.component';
 
 @NgModule({
@@ -21,7 +23,8 @@ import { SearchSelectionsComponent } from './components/search-selections/search
     HttpClientModule
   ],
   providers: [
-    MyHttpService
+    MyHttpService,
+    ModelService
   ],
   bootstrap: [AppComponent]
 })

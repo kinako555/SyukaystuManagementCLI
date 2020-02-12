@@ -16,12 +16,12 @@
   <tbody>
     <tr *ngFor="let selection of selections; let i=index">
       <td>{{ i + 1 }}</td>
-      <td>{{ selection.company_name }}</td>
-      <td>{{ selection.company_name }}</td>
-      <td>{{ selection.company_name }}</td>
-      <td>{{ selection.company_name }}</td>
-      <td>{{ selection.next_appointment }}</td>
-      <td>未実装</td>
+      <td>{{ modelService.find_name(companys, selection.company_id) }}</td>
+      <td>{{ modelService.find_name(choicese.seasons,  selection.season_id)  }}</td>
+      <td>{{ modelService.find_name(choicese.selectionStautses, selection.selection_status_id) }}</td>
+      <td>{{ modelService.find_name(choicese.applicationWays,    selection.application_way_id)  }}</td>
+      <td>{{ selection.next_appointment   }}</td>
+      <td>{{ selection.documents_password }}</td>
       <td>{{ selection.remarks }}</td>
     </tr>
   </tbody>
