@@ -1,4 +1,4 @@
-export class ApplicationWay {
-	"id"  : string;
-	"name": string;
+export class ApplicationWay implements PossessedSelection{
+	id  : number;
+	name: string;
 }

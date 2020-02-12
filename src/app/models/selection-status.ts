@@ -1,4 +1,4 @@
-export class SelectionStatus {
-	"id"  : string;
-	"name": string;
+export class SelectionStatus implements PossessedSelection{
+	id  : number;
+	name: string;
 }

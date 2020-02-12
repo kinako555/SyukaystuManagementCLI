@@ -1,4 +1,4 @@
-export class Season {
-	"id"  : string;
-	"name": string;
+export class Season implements PossessedSelection{
+	id  : number;
+	name: string;
 }

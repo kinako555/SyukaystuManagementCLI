@@ -1,0 +1,12 @@
+
+<form>
+  <input placeholder="企業名" type="text" id="search_company_name">
+  <br/>
+  <label>応募時期</label>
+  <select id="search_season">
+    <option value="undefined" selected>----------</option>
+    <option *ngFor="let season of choicese.seasons" value="{{season.id}}">{{season.name}}</option>
+  </select>
+  <button type="submit" class="btn btn-primary">絞り込み</button>
+</form>
+
