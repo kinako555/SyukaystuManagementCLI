@@ -26,7 +26,12 @@ export class SelectionsComponent implements OnInit {
     this.get_initialize_values();
   }
 
-  get_initialize_values() :void{
+  //検索結果を受け取ったときに走るイベント
+  posted_search_result(selections: any) {
+    this.selections = selections.selections;
+  }
+
+  private get_initialize_values() :void{
     this.myHttpService.get_initialize_values()
       .subscribe((value :any)  =>{ 
         this.choicese.selectionStautses = value.selection_statuses;
