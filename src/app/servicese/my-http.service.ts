@@ -28,6 +28,16 @@ export class MyHttpService {
       )
   }
 
+  get_search_companys(query: string): Observable<any> {
+    let uri = HOST_URI + '/selections' + query
+    console.log(uri);
+    return this.http.get(uri, HTTP_OPTIONS)
+      .pipe(
+        retry(3),
+        catchError(this.handleError)
+      )
+  }
+
   // エラーハンドリング
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
