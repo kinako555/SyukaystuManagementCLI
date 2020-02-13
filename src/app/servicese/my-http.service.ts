@@ -20,6 +20,8 @@ export class MyHttpService {
     private http: HttpClient
   ) { }
 
+  // 初期表示値を取得 TODO: URI名をHomeなどに変える
+  // /selections
   get_initialize_values(): Observable<any> {
     return this.http.get(HOST_URI,HTTP_OPTIONS)
       .pipe(
@@ -28,9 +30,10 @@ export class MyHttpService {
       )
   }
 
+  // 選考検索
+  // /selections?name=hoge&season_id=1
   get_search_companys(query: string): Observable<any> {
     let uri = HOST_URI + '/selections' + query
-    console.log(uri);
     return this.http.get(uri, HTTP_OPTIONS)
       .pipe(
         retry(3),
