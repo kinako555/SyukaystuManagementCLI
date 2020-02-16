@@ -14,10 +14,11 @@ export class SearchSelectionsComponent implements OnInit {
   constructor(private myHttpService: MyHttpService) { }
 
   @Input()  choicese: Choicese;
-  @Output() posted = new EventEmitter<String>();
+  @Output() posted = new EventEmitter();
 
   ngOnInit() {
   }
+  UN_SELECTED: string = "unselected";
 
   private searchParams = {
     company_name: '',
@@ -36,14 +37,21 @@ export class SearchSelectionsComponent implements OnInit {
   }
 
   // Objをクエリ文字に変換する
-  //例 name=hogr&id=1
+  //例 name=hogr&company_id=1
   private format_params(params: Object) :string{
     let rtn_str = "?";
 
     for (let key in params) {
-      rtn_str = rtn_str + key + "=" + params[key] + "&";
+      if (params[key] !== this.UN_SELECTED && params[key]) {
+        console.log(params[key]);
+        rtn_str = rtn_str + key + "=" + params[key] + "&";
+      }
     }
     // 末尾の&を削除
+    if (rtn_str.match(/&/)) {
+      rtn_str.slice( 0, -1 );
+    }
+
     return rtn_str.slice( 0, -1 );
   }
 

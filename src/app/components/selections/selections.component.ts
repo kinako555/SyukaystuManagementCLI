@@ -28,7 +28,8 @@ export class SelectionsComponent implements OnInit {
 
   //検索結果を受け取ったときに走るイベント
   posted_search_result(selections: any) {
-    this.selections = selections.selections;
+    console.log("searched");
+    this.selections = selections;
   }
 
   private get_initialize_values() :void{
