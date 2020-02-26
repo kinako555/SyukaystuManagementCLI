@@ -37,7 +37,7 @@ export class SearchSelectionsComponent implements OnInit {
   }
 
   // Objをクエリ文字に変換する
-  //例 name=hogr&company_id=1
+  //例 company_name=hogr&season_id=1
   private format_params(params: Object) :string{
     let rtn_str = "?";
 

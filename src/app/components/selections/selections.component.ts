@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { Selection } from "../../models/selection";
+import { Selection } from "../../models/Selection";
 import { Choicese }  from "../../models/Choicese";
 import { Company }   from "../../models/Company";
 
@@ -17,7 +17,7 @@ export class SelectionsComponent implements OnInit {
   closeIds  : any;
   selections: Selection[];
   choicese  : Choicese = new Choicese();
-  companys  : Company[];
+  companies  : Company[];
 
   constructor(private myHttpService: MyHttpService,
               private modelService : ModelService) { }
@@ -40,7 +40,7 @@ export class SelectionsComponent implements OnInit {
         this.choicese.applicationWays   = value.application_ways;
         this.closeIds   = value.close_ids;	
         this.selections = value.selections;
-        this.companys   = value.companys;
+        this.companies   = value.companies;
       })
   }
 

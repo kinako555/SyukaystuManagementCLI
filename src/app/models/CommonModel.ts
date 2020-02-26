@@ -1,4 +1,4 @@
-interface PossessedSelection {
+export interface CommonModel {
     id  : number;
     name: string;
 }
