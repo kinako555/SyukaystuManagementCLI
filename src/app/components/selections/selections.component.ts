@@ -1,12 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
-import { SimpleModalService } from 'ngx-simple-modal';
 import { NewSelectionModalComponent } from '../new-selection-modal/new-selection-modal.component';
 
 import { Selection } from "../../models/selection";
 import { Choicese }  from "../../models/choicese";
 import { Company }   from "../../models/company";
-import { SelectedCompany } from "../../models/selected-company";
 
 import { MyHttpService } from "../../servicese/my-http.service";
 import { ModelService }  from "../../servicese/model.service";
@@ -25,7 +24,7 @@ export class SelectionsComponent implements OnInit {
 
   constructor(private myHttpService: MyHttpService,
               private modelService : ModelService,
-              private SimpleModalService: SimpleModalService) { }
+              private modalService: NgbModal) { }
 
   ngOnInit() {
     this.get_initialize_values();
@@ -52,13 +51,11 @@ export class SelectionsComponent implements OnInit {
   // 新規作成モーダル表示
   // selectionから表示する場合はcompanyを渡す
   showCreateModal(company_id: number = null) {
-    let rtn_company = new SelectedCompany();
-    if (company_id) {
-      let company = this.modelService.find(this.companies, company_id);
-      rtn_company = SelectedCompany.companyToSelecterdCompany(company);
-    } 
-    rtn_company.choicese = this.choicese;
-    this.SimpleModalService.addModal(NewSelectionModalComponent, rtn_company);
+    let company = new Company();
+    if (company_id) company = this.modelService.find(this.companies, company_id);
+    const modal = this.modalService.open(NewSelectionModalComponent, {backdrop: true});
+    modal.componentInstance.company  = company;
+    modal.componentInstance.choicese = this.choicese;
   }
 
 }
