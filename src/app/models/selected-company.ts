@@ -1,10 +1,12 @@
-import { Company } from "./Company";
+import { Company } from "./company";
+import { Choicese } from "./choicese";
 
 export class SelectedCompany {
     company_id   : number;
     company_name : string;
     company_kana : string;
     company_link : string;
+    choicese: Choicese;
 
     //companyからselecred_companyに値を反映して返す
     static companyToSelecterdCompany(company: Company) :SelectedCompany{

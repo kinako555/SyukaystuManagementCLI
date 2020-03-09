@@ -3,10 +3,10 @@ import { Component, OnInit } from '@angular/core';
 import { SimpleModalService } from 'ngx-simple-modal';
 import { NewSelectionModalComponent } from '../new-selection-modal/new-selection-modal.component';
 
-import { Selection } from "../../models/Selection";
-import { Choicese }  from "../../models/Choicese";
-import { Company }   from "../../models/Company";
-import { SelectedCompany } from "../../models/SelectedCompany";
+import { Selection } from "../../models/selection";
+import { Choicese }  from "../../models/choicese";
+import { Company }   from "../../models/company";
+import { SelectedCompany } from "../../models/selected-company";
 
 import { MyHttpService } from "../../servicese/my-http.service";
 import { ModelService }  from "../../servicese/model.service";
@@ -20,7 +20,7 @@ export class SelectionsComponent implements OnInit {
 
   closeIds  : any;
   selections: Selection[];
-  choicese  : Choicese = new Choicese();
+  choicese  : Choicese= new Choicese();
   companies  : Company[];
 
   constructor(private myHttpService: MyHttpService,
@@ -57,6 +57,7 @@ export class SelectionsComponent implements OnInit {
       let company = this.modelService.find(this.companies, company_id);
       rtn_company = SelectedCompany.companyToSelecterdCompany(company);
     } 
+    rtn_company.choicese = this.choicese;
     this.SimpleModalService.addModal(NewSelectionModalComponent, rtn_company);
   }
 

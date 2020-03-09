@@ -1,4 +1,4 @@
-import { CommonModel } from "./CommonModel";
+import { CommonModel } from "./common-model";
 
 export class Company implements CommonModel {
    id  : number;

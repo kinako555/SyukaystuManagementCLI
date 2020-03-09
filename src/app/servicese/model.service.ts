@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { CommonModel } from "../models/CommonModel";
+import { CommonModel } from "../models/common-model";
 
 @Injectable({
   providedIn: 'root'
