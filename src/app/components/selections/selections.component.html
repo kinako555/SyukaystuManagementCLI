@@ -1,5 +1,7 @@
-<app-search-selections (posted)="posted_search_result($event)" [choicese] = "choicese">
-    </app-search-selections>
+<app-search-selections (posted)="posted_search_result($event)" [choicese] = "choicese"></app-search-selections>
+<div>
+  <button class="btn btn-default btn-primary" (click)=showCreateModal()>追加</button>
+</div>
 <table align="center">
   <thead>
     <tr>

@@ -6,28 +6,34 @@ import { FormsModule }      from '@angular/forms';
 import { AppComponent }        from './app.component';
 import { AppRoutingModule }    from './app-routing.module';
 import { SelectionsComponent } from './components/selections/selections.component';
-
+import { SimpleModalModule } from 'ngx-simple-modal';
 import { MyHttpService } from "./servicese/my-http.service";
 import { ModelService }  from "./servicese/model.service";
 
 import { SearchSelectionsComponent } from './components/search-selections/search-selections.component';
+import { NewSelectionComponent } from './components/new-selection/new-selection.component';
+import { NewSelectionModalComponent } from './components/new-selection-modal/new-selection-modal.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     SelectionsComponent,
-    SearchSelectionsComponent
+    SearchSelectionsComponent,
+    NewSelectionComponent,
+    NewSelectionModalComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    SimpleModalModule
   ],
   providers: [
     MyHttpService,
     ModelService
   ],
+  entryComponents: [NewSelectionModalComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

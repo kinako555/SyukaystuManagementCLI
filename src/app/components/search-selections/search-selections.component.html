@@ -4,7 +4,7 @@
   <br/>
   <label>応募時期</label>
   <select name="season" [(ngModel)]="searchParams.season_id">
-    <option value="{{UN_SELECTED}}" selected>----------</option>
+    <option value=null selected>----------</option>
     <option *ngFor="let season of choicese.seasons" value="{{season.id}}">{{season.name}}</option>
   </select>
   <button type="submit" (click)="submit()" class="btn btn-primary">絞り込み</button>

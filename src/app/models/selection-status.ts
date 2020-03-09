@@ -1,4 +1,4 @@
-import { CommonModel } from "./CommonModel";
+import { CommonModel } from "./common-model";
 
 export class SelectionStatus implements CommonModel {
 	id  : number;

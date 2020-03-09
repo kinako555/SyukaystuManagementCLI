@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
-import { Choicese } from "../../models/Choicese";
+import { Choicese } from "../../models/choicese";
 
 import { MyHttpService } from "../../servicese/my-http.service";
 

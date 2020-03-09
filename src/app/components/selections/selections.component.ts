@@ -1,8 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 
-import { Selection } from "../../models/Selection";
-import { Choicese }  from "../../models/Choicese";
-import { Company }   from "../../models/Company";
+import { SimpleModalService } from 'ngx-simple-modal';
+import { NewSelectionModalComponent } from '../new-selection-modal/new-selection-modal.component';
+
+import { Selection } from "../../models/selection";
+import { Choicese }  from "../../models/choicese";
+import { Company }   from "../../models/company";
+import { SelectedCompany } from "../../models/selected-company";
 
 import { MyHttpService } from "../../servicese/my-http.service";
 import { ModelService }  from "../../servicese/model.service";
@@ -16,11 +20,12 @@ export class SelectionsComponent implements OnInit {
 
   closeIds  : any;
   selections: Selection[];
-  choicese  : Choicese = new Choicese();
+  choicese  : Choicese= new Choicese();
   companies  : Company[];
 
   constructor(private myHttpService: MyHttpService,
-              private modelService : ModelService) { }
+              private modelService : ModelService,
+              private SimpleModalService: SimpleModalService) { }
 
   ngOnInit() {
     this.get_initialize_values();
@@ -42,6 +47,18 @@ export class SelectionsComponent implements OnInit {
         this.selections = value.selections;
         this.companies   = value.companies;
       })
+  }
+
+  // 新規作成モーダル表示
+  // selectionから表示する場合はcompanyを渡す
+  showCreateModal(company_id: number = null) {
+    let rtn_company = new SelectedCompany();
+    if (company_id) {
+      let company = this.modelService.find(this.companies, company_id);
+      rtn_company = SelectedCompany.companyToSelecterdCompany(company);
+    } 
+    rtn_company.choicese = this.choicese;
+    this.SimpleModalService.addModal(NewSelectionModalComponent, rtn_company);
   }
 
 }

@@ -1,6 +1,6 @@
-import { Season } from "./Season";
-import { SelectionStatus } from "./Selection-status";
-import { ApplicationWay } from "./Application-way";
+import { Season } from "./season";
+import { SelectionStatus } from "./selection-status";
+import { ApplicationWay } from "./application-way";
 
 export class Choicese {
     selectionStautses: SelectionStatus[];
