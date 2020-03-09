@@ -1,10 +1,7 @@
-import { Component } from '@angular/core';
-import { SimpleModalComponent } from 'ngx-simple-modal';
+import { Component, Input } from '@angular/core';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { Selection } from "../../models/selection";
-import { Choicese }  from "../../models/choicese";
-import { Company }   from "../../models/company";
-import { SelectedCompany } from "../../models/selected-company";
 import { ApplicationWay } from "../../models/application-way";
 import { Season } from "../../models/season";
 import { SelectionStatus } from "../../models/selection-status";
@@ -14,30 +11,28 @@ import { SelectionStatus } from "../../models/selection-status";
   templateUrl: './new-selection-modal.component.html',
   styleUrls: ['./new-selection-modal.component.css']
 })
-export class NewSelectionModalComponent extends SimpleModalComponent<SelectedCompany, boolean> implements SelectedCompany{
-  choicese: Choicese;
+export class NewSelectionModalComponent {
   applicationWay: ApplicationWay= new ApplicationWay();
-  company: Company= new Company();
   season : Season= new Season();
   selectionStauts: SelectionStatus= new SelectionStatus();
+  selection : Selection = new Selection();
 
-  company_id   : number;
-  company_name : string;
-  company_kana : string;
-  company_link : string;
+  @Input() company;
+  @Input() choicese;
 
+  constructor(public activeModal: NgbActiveModal) { }
 
   //companyが選択されたか
   isCompany(): boolean{ 
-    return this.company_id ? true : false;
+    return this.company.id ? true : false;
   }
 
   submit() {
     //処理
-    this.close();
+    this.activeModal.close();
   }
 
   cancel() {
-    this.close();
+    this.activeModal.close();
   }
 }

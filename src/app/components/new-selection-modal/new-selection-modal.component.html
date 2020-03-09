@@ -1,41 +1,39 @@
-<form>
-  <div class="modal-content">
-    <div class="modal-header">
-      <h4>登録</h4>
-    </div>
-    <div class="modal-body">
-      <label>企業名</label>
-      <input type="text" name="company_name"  [(ngModel)]="company.name">
-      <br/>
-      <label>企業名(かな)</label>
-      <input type="text" name="company_kana"  [(ngModel)]="company.kana">
-      <br/>
-      <label>リンク</label>
-      <input type="text" name="company_link"  [(ngModel)]="company.link">
-      <br/>
-      <label>書類パスワード</label>
-      <input type="text" name="password"  [(ngModel)]="selection.password">
-      <br/>
-      <label>応募時期</label>
-      <select name="season" [(ngModel)]="selection.season_id">
-        <option value=null selected>----------</option>
-        <option *ngFor="let season of choicese.seasons" value="{{season.id}}">{{season.name}}</option>
-      </select>
-      <br/>
-      <label>状況</label>
-      <select name="selection_status" [(ngModel)]="selection.season_id">
-        <option value=null selected>----------</option>
-        <option *ngFor="let stauts of choicese.selection_statuses" value="{{selection_status.id}}">{{selection_status.name}}</option>
-      </select>
-      <label>応募方法</label>
-      <select name="selection_status" [(ngModel)]="selection.selection_status_id">
-        <option value=null selected>----------</option>
-        <option *ngFor="let stauts of choicese.selection_statuses" value="{{selection_status.id}}">{{selection_status.name}}</option>
-      </select>
-    </div>
-    <div class="modal-footer">
-      <button type="submit" (click)="submit()" class="btn btn-primary">登録</button>
-      <button type="button" class="btn btn-outline-danger" (click)="cancel()">閉じる</button>
-    </div>
-  </div>
-</form>
+<div class="modal-header">
+  <h4>登録</h4>
+</div>
+<div class="modal-body">
+  <form>
+    <label>企業名</label>
+    <input type="text" name="company.name"  [(ngModel)]="company.name">
+    <br/>
+    <label>企業名(かな)</label>
+    <input type="text" name="company.kana"  [(ngModel)]="company.kana">
+    <br/>
+    <label>リンク</label>
+    <input type="text" name="company.link"  [(ngModel)]="company.link">
+    <br/>
+    <label>書類パスワード</label>
+    <input type="text" name="password"  [(ngModel)]="selection.password">
+    <br/>
+    <label>応募時期</label>
+    <select name="season" [(ngModel)]="selection.season_id">
+      <option value="undefined" selected>----------</option>
+      <option *ngFor="let season of choicese.seasons" value="{{season.id}}">{{season.name}}</option>
+    </select>
+    <br/>
+    <label>状況</label>
+    <select name="status" [(ngModel)]="selection.selection_status_id">
+      <option value="undefined" selected>----------</option>
+      <option *ngFor="let status of choicese.selectionStautses" value="{{status.id}}">{{status.name}}</option>
+    </select>
+    <label>応募方法</label>
+    <select name="applicationWay" [(ngModel)]="selection.application_way_id">
+      <option value="undefined" selected>----------</option>
+      <option *ngFor="let applicationWay of choicese.applicationWays" value="{{applicationWay.id}}">{{applicationWay.name}}</option>
+    </select>
+  </form>
+</div>
+<div class="modal-footer">
+  <button type="submit" (click)="submit()" class="btn btn-primary">登録</button>
+  <button type="button" class="btn btn-outline-danger" (click)="cancel()">閉じる</button>
+</div>
