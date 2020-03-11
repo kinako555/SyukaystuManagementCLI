@@ -7,7 +7,7 @@ import { AppComponent }        from './app.component';
 import { AppRoutingModule }    from './app-routing.module';
 import { SelectionsComponent } from './components/selections/selections.component';
 import { SimpleModalModule } from 'ngx-simple-modal';
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { MyHttpService } from "./servicese/my-http.service";
 import { ModelService }  from "./servicese/model.service";
 
