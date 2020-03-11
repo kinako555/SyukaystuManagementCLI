@@ -2,7 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 import { Choicese } from "../../models/choicese";
 
-import { MyHttpService } from "../../servicese/my-http.service";
+import { SelectionHttpService } from "../../servicese/selection-http.service";
 
 @Component({
   selector: 'app-search-selections',
@@ -11,7 +11,7 @@ import { MyHttpService } from "../../servicese/my-http.service";
 })
 export class SearchSelectionsComponent implements OnInit {
 
-  constructor(private myHttpService: MyHttpService) { }
+  constructor(private selectionHttpService: SelectionHttpService) { }
 
   @Input()  choicese: Choicese;
   @Output() posted = new EventEmitter();
@@ -30,7 +30,7 @@ export class SearchSelectionsComponent implements OnInit {
     let query = "";
 
     query = this.format_params(this.searchParams);
-    this.myHttpService.get_search_companys(query)
+    this.selectionHttpService.search(query)
       .subscribe((value :any)  =>{ 
         this.posted.emit(value.selections);
       })
@@ -40,17 +40,13 @@ export class SearchSelectionsComponent implements OnInit {
   //例 company_name=hogr&season_id=1
   private format_params(params: Object) :string{
     let rtn_str = "?";
-
     for (let key in params) {
       if (params[key] !== this.UN_SELECTED && params[key]) {
-        console.log(params[key]);
         rtn_str = rtn_str + key + "=" + params[key] + "&";
       }
     }
     // 末尾の&を削除
-    if (rtn_str.match(/&/)) {
-      rtn_str.slice( 0, -1 );
-    }
+    if (rtn_str.match(/&/)) rtn_str.slice( 0, -1 );
 
     return rtn_str.slice( 0, -1 );
   }
