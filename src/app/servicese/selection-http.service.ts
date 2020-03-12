@@ -20,7 +20,7 @@ export class SelectionHttpService {
 
   //get /selections?name=hoge&season_id=1
   search(query: string): Observable<any> {
-    let uri = this.myHttpService.hostUri() + '/selections' + query
+    const uri = this.myHttpService.hostUri() + '/selections' + query
     return this.http.get(uri)
       .pipe(
         retry(3),
@@ -30,7 +30,7 @@ export class SelectionHttpService {
 
   //delete /selections/1
   delete(id: number): Observable<any> {
-    let uri = this.myHttpService.hostUri() + '/selections/' + id
+    const uri = this.myHttpService.hostUri() + '/selections/' + id
     return this.http.delete(uri)
       .pipe(
         retry(3),
@@ -39,9 +39,19 @@ export class SelectionHttpService {
   }
 
   create(selection: Selection): Observable<any> {
-    let params = {'selection': selection};
-    let uri = this.myHttpService.hostUri() + '/selection';
+    const params = {'selection': selection};
+    const uri = this.myHttpService.hostUri() + '/selection';
     return this.http.post(uri, params)
+      .pipe(
+        retry(3),
+        catchError(this.myHttpService.handleError)
+      )
+  }
+
+  update(selection: Selection): Observable<any> {
+    const params = {'selection': selection};
+    const uri = this.myHttpService.hostUri() + '/selection/' + selection.id;
+    return this.http.patch(uri, params)
       .pipe(
         retry(3),
         catchError(this.myHttpService.handleError)

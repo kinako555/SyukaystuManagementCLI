@@ -21,9 +21,7 @@ export class EditSelectionModalComponent implements OnInit {
   season          : Season          = new Season();
   selectionStauts : SelectionStatus = new SelectionStatus();
   selection       : Selection       = new Selection();
-  selectionSubject: Subject<Company> = new Subject();
-  createdValues   : Object = {};
-  selectionState : Observable<Company> = this.selectionSubject.asObservable();
+  updatedValues   : Object = {};
 
 
   @Output() posted = new EventEmitter();
@@ -34,43 +32,41 @@ export class EditSelectionModalComponent implements OnInit {
               private selectionHttpService: SelectionHttpService,
               private companyHttpService: CompanyHttpService) { }
 
-    ngOnInit() {
-      // create_companyのレスポンスを受け取ったあとで処理
-      this.selectionState.subscribe((company) => {
-        
-      });
-    }
+    ngOnInit() {}
 
       // 登録ボタン
   // companyを登録する際は、登録後のcompany_idを受け取りselectionにつける
   submit() {
-    this.createCompany();
+    this.updateValues();
     this.activeModal.close();
   }
 
   // キャンセルボタン
   cancel() { this.activeModal.close(); }
 
+  private updateValues(): void{
+    this.updateCompany();
+    this.updateSelection();
+  }
+
     // company作成
   // 作成後のidを返す
-  private createCompany(): void{
-    this.companyHttpService.create(this.company)
+  private updateCompany(): void{
+    this.companyHttpService.update(this.company)
       .subscribe((value :any) =>{ 
-        console.log('created_company');
-        this.company = value['company']
-        this.createdValues['company'] = value['company'];
-        this.selectionSubject.next(this.company);
+        console.log('updatedCompany');
+        this.updatedValues['company'] = value['company'];
       })
   }
 
   // selection作成
-  private createSelection(): void{
-    this.selectionHttpService.create(this.selection)
+  private updateSelection(): void{
+    this.selectionHttpService.update(this.selection)
       .subscribe((value :any) =>{ 
-        console.log('created_selection');
+        console.log('updatedSelection');
         this.selection = value['selection'];
-        this.createdValues['selection'] = this.selection;
-        this.posted.emit(this.createdValues);
+        this.updatedValues['selection'] = this.selection;
+        this.posted.emit(this.updatedValues);
       })
   }
 
