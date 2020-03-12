@@ -23,7 +23,7 @@ export class MyHttpService {
 
   // 初期表示値を取得 TODO: URI名をHomeなどに変える
   // /selections
-  get_initialize_values(): Observable<any> {
+  getInitializeValues(): Observable<any> {
     return this.http.get(HOST_URI)
       .pipe(
         retry(3),

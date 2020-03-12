@@ -14,6 +14,8 @@ import { ModelService }  from "./servicese/model.service";
 import { SearchSelectionsComponent } from './components/search-selections/search-selections.component';
 import { NewSelectionComponent } from './components/new-selection/new-selection.component';
 import { NewSelectionModalComponent } from './components/new-selection-modal/new-selection-modal.component';
+import { EditSelectionComponent } from './components/edit-selection/edit-selection.component';
+import { EditSelectionModalComponent } from './components/edit-selection-modal/edit-selection-modal.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +23,9 @@ import { NewSelectionModalComponent } from './components/new-selection-modal/new
     SelectionsComponent,
     SearchSelectionsComponent,
     NewSelectionComponent,
-    NewSelectionModalComponent
+    NewSelectionModalComponent,
+    EditSelectionComponent,
+    EditSelectionModalComponent
   ],
   imports: [
     BrowserModule,

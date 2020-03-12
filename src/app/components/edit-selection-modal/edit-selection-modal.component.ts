@@ -12,11 +12,11 @@ import { SelectionHttpService } from "../../servicese/selection-http.service";
 import { CompanyHttpService } from "../../servicese/company-http.service";
 
 @Component({
-  selector: 'app-new-selection-modal',
-  templateUrl: './new-selection-modal.component.html',
-  styleUrls: ['./new-selection-modal.component.css']
+  selector: 'app-edit-selection-modal',
+  templateUrl: './edit-selection-modal.component.html',
+  styleUrls: ['./edit-selection-modal.component.css']
 })
-export class NewSelectionModalComponent implements OnInit{
+export class EditSelectionModalComponent implements OnInit {
   applicationWay  : ApplicationWay  = new ApplicationWay();
   season          : Season          = new Season();
   selectionStauts : SelectionStatus = new SelectionStatus();
@@ -24,6 +24,7 @@ export class NewSelectionModalComponent implements OnInit{
   selectionSubject: Subject<Company> = new Subject();
   createdValues   : Object = {};
   selectionState : Observable<Company> = this.selectionSubject.asObservable();
+
 
   @Output() posted = new EventEmitter();
   @Input() company;
@@ -33,20 +34,14 @@ export class NewSelectionModalComponent implements OnInit{
               private selectionHttpService: SelectionHttpService,
               private companyHttpService: CompanyHttpService) { }
 
-  ngOnInit() {
-    // create_companyのレスポンスを受け取ったあとで処理
-    this.selectionState.subscribe((company) => {
-      this.selection.company_id = company.id;
-      this.createSelection();
-    });
-  }
+    ngOnInit() {
+      // create_companyのレスポンスを受け取ったあとで処理
+      this.selectionState.subscribe((company) => {
+        
+      });
+    }
 
-  //companyが選択されたか
-  isCompany(): boolean{ 
-    return this.company.id !== undefined;
-  }
-
-  // 登録ボタン
+      // 登録ボタン
   // companyを登録する際は、登録後のcompany_idを受け取りselectionにつける
   submit() {
     this.createCompany();
@@ -56,7 +51,7 @@ export class NewSelectionModalComponent implements OnInit{
   // キャンセルボタン
   cancel() { this.activeModal.close(); }
 
-  // company作成
+    // company作成
   // 作成後のidを返す
   private createCompany(): void{
     this.companyHttpService.create(this.company)
@@ -78,4 +73,5 @@ export class NewSelectionModalComponent implements OnInit{
         this.posted.emit(this.createdValues);
       })
   }
+
 }
