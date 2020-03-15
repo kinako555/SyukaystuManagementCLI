@@ -1,6 +1,5 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { Subject, Observable } from 'rxjs';
 
 import { Selection } from "../../models/selection";
 import { ApplicationWay } from "../../models/application-way";
@@ -10,6 +9,7 @@ import { SelectionStatus } from "../../models/selection-status";
 
 import { SelectionHttpService } from "../../servicese/selection-http.service";
 import { CompanyHttpService } from "../../servicese/company-http.service";
+import { Choicese } from 'src/app/models/choicese';
 
 @Component({
   selector: 'app-edit-selection-modal',
@@ -17,61 +17,67 @@ import { CompanyHttpService } from "../../servicese/company-http.service";
   styleUrls: ['./edit-selection-modal.component.css']
 })
 export class EditSelectionModalComponent implements OnInit {
-  applicationWay  : ApplicationWay  = new ApplicationWay();
-  season          : Season          = new Season();
-  selectionStauts : SelectionStatus = new SelectionStatus();
-  selection       : Selection       = new Selection();
-  selectionSubject: Subject<Company> = new Subject();
-  createdValues   : Object = {};
-  selectionState : Observable<Company> = this.selectionSubject.asObservable();
-
+  applicationWay : ApplicationWay  = new ApplicationWay();
+  season         : Season          = new Season();
+  selectionStauts: SelectionStatus = new SelectionStatus();
+  updatedValues  : Object = {};
+  editCompany    : Company;
+  editSelection  : Selection;
 
   @Output() posted = new EventEmitter();
-  @Input() company;
-  @Input() choicese;
+  @Input() selection: Selection;
+  @Input() company  : Company;
+  @Input() choicese : Choicese;
 
   constructor(private activeModal: NgbActiveModal,
               private selectionHttpService: SelectionHttpService,
               private companyHttpService: CompanyHttpService) { }
 
-    ngOnInit() {
-      // create_companyのレスポンスを受け取ったあとで処理
-      this.selectionState.subscribe((company) => {
-        
-      });
-    }
+  ngOnInit() {
+    this.editCompany   = Company.duplication(this.company);
+    this.editSelection = Selection.duplication(this.selection);
+  }
 
-      // 登録ボタン
+  // 登録ボタン
   // companyを登録する際は、登録後のcompany_idを受け取りselectionにつける
   submit() {
-    this.createCompany();
+    this.updateValues();
+    this.setUpdateValues();
+    this.posted.emit(this.updatedValues);
     this.activeModal.close();
   }
 
   // キャンセルボタン
   cancel() { this.activeModal.close(); }
 
+  private updateValues(): void{
+    this.updateCompany();
+    this.updateSelection();
+  }
+
     // company作成
   // 作成後のidを返す
-  private createCompany(): void{
-    this.companyHttpService.create(this.company)
+  private updateCompany(): void{
+    this.companyHttpService.update(this.editCompany)
       .subscribe((value :any) =>{ 
-        console.log('created_company');
-        this.company = value['company']
-        this.createdValues['company'] = value['company'];
-        this.selectionSubject.next(this.company);
+        console.log('updatedCompany');
+        // view更新時にレスポンスを受け取れない可能性を考慮してレスポンスではなくeditCompanyを使用
       })
   }
 
   // selection作成
-  private createSelection(): void{
-    this.selectionHttpService.create(this.selection)
+  private updateSelection(): void{
+    this.selectionHttpService.update(this.selection)
       .subscribe((value :any) =>{ 
-        console.log('created_selection');
-        this.selection = value['selection'];
-        this.createdValues['selection'] = this.selection;
-        this.posted.emit(this.createdValues);
+        console.log('updatedSelection');
+        // view更新時にレスポンスを受け取れない可能性を考慮してレスポンスではなくeditSelectionを使用
       })
+  }
+
+  // view更新時にレスポンスを受け取れない可能性を考慮して
+  private setUpdateValues():void {
+    this.updatedValues['company']   = this.editCompany;
+    this.updatedValues['selection'] = this.editSelection;
   }
 
 }

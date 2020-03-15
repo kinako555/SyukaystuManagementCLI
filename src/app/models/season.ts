@@ -1,6 +1,6 @@
-import { CommonModel } from "./common-model";
+import { SelectionValue } from "./selection-value";
+import { Model } from "./model";
 
-export class Season implements CommonModel{
-	id  : number;
+export class Season extends Model implements SelectionValue{
 	name: string;
 }

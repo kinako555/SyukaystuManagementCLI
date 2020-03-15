@@ -20,9 +20,9 @@ import { ModelService }  from "../../servicese/model.service";
 })
 export class SelectionsComponent implements OnInit {
 
-  closeIds  : any;
-  selections: Selection[];
-  choicese  : Choicese= new Choicese();
+  closeIds   : any;
+  selections : Selection[];
+  choicese   : Choicese= new Choicese();
   companies  : Company[];
 
   constructor(private myHttpService: MyHttpService,
@@ -50,16 +50,19 @@ export class SelectionsComponent implements OnInit {
     modal.componentInstance.choicese = this.choicese;
     modal.componentInstance.posted.subscribe( ($create_values) => {
       this.addCreateValues($create_values);
+      this.addSelection($create_values['selection']);
     })
   }
 
   // 編集作成モーダル表示
-  showEditModal(selectionId: number = null) {
+  showEditModal(selection: Selection) {
     const modal = this.modalService.open(EditSelectionModalComponent);
-    modal.componentInstance.choicese = this.choicese;
-    modal.componentInstance.selection = Selection.find(this.selections, selectionId);
+    modal.componentInstance.company   = this.modelService.find(this.companies, selection.company_id);
+    modal.componentInstance.choicese  = this.choicese;
+    modal.componentInstance.selection = this.modelService.find(this.selections, selection.id);
     modal.componentInstance.posted.subscribe( ($create_values) => {
-      this.addCreateValues($create_values);
+      this.updateValues($create_values);
+      this.updateSelection($create_values['selection']);
     })
   }
 
@@ -67,7 +70,7 @@ export class SelectionsComponent implements OnInit {
     this.selectionHttpService.delete(selectionId)
       .subscribe(()  =>{ 
         console.log('deleted');
-        this.selections = Selection.delete(this.selections, selectionId);
+        this.selections = this.modelService.delete(this.selections, selectionId);
       })
   }
 
@@ -83,13 +86,24 @@ export class SelectionsComponent implements OnInit {
       })
   }
 
+  private addSelection(selection: Selection): void{
+    this.selections.push(this.formatSelection(selection));
+  }
+
+  private updateSelection(seleciton :Selection):void{
+    this.selections = this.modelService.update(this.selections, this.formatSelection(seleciton));
+  }
+
   private addCreateValues(create_values: Object): void{
     if (create_values['company'] !== undefined) this.companies.push(create_values['company']);
-    this.selections.push(this.formatCreatedSelection(create_values['selection']));
+  }
+
+  private updateValues(create_values: Object): void{
+    if (create_values['company'] !== undefined) this.companies = this.modelService.update(this.companies, create_values['company']);
   }
 
   // 選択枠(select)で選択するとIDが文字列になるのでとりあえず数値に変換する
-  private formatCreatedSelection(value: Selection): Selection{
+  private formatSelection(value: Selection): Selection{
     let v_selection = value;
     v_selection.application_way_id = Number(v_selection.application_way_id);
     v_selection.season_id = Number(v_selection.season_id);

@@ -1,6 +1,7 @@
-import { CommonModel } from "./common-model";
+import { SelectionValue } from "./selection-value";
+import { Model } from "./model";
 
-export class ApplicationWay implements CommonModel{
+export class ApplicationWay extends Model implements SelectionValue{
 	id  : number;
 	name: string;
 }

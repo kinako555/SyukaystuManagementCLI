@@ -19,9 +19,19 @@ export class CompanyHttpService {
   ) { }
 
   create(company: Company): Observable<any> {
-    let uri = this.myHttpService.hostUri() + '/company';
-    let params = {'company': company};
+    const uri = this.myHttpService.hostUri() + '/company';
+    const params = {'company': company};
     return this.http.post(uri, params)
+      .pipe(
+        retry(3),
+        catchError(this.myHttpService.handleError)
+      )
+  }
+
+  update(company: Company): Observable<any> {
+    const uri = this.myHttpService.hostUri() + '/company/' + company.id;
+    const params = {'company': company};
+    return this.http.patch(uri, params)
       .pipe(
         retry(3),
         catchError(this.myHttpService.handleError)
