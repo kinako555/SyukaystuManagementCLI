@@ -30,7 +30,7 @@ export class SelectionHttpService {
 
   //delete /selections/1
   delete(id: number): Observable<any> {
-    const uri = this.myHttpService.hostUri() + '/selections/' + id
+    const uri = this.myHttpService.hostUri() + '/selection/' + id
     return this.http.delete(uri)
       .pipe(
         retry(3),

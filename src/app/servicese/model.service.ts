@@ -33,10 +33,13 @@ export class ModelService {
     return rtn_models;
   }
 
+  // TODO: 他の方法を検討
   update(models: Model[], model: Model) :any {
-    models.forEach(element => {
-        if (element.id == model.id) element = model;
+    let num = 0;
+    models.forEach((element, i) => {
+        if (element.id == model.id) num = i;
     });
+    models[num] = model;
     return models;
   }
 }

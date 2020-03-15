@@ -1,7 +1,6 @@
 import { SelectionValue } from "./selection-value";
 import { Model } from "./model";
 
-export class SelectionStatus implements Model, SelectionValue {
-	id  : number;
+export class SelectionStatus extends Model implements SelectionValue {
 	name: string;
 }

@@ -39,7 +39,8 @@ import { EditSelectionModalComponent } from './components/edit-selection-modal/e
     MyHttpService,
     ModelService
   ],
-  entryComponents: [NewSelectionModalComponent],
+  entryComponents: [NewSelectionModalComponent,
+                    EditSelectionModalComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

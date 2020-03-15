@@ -1,7 +1,6 @@
 import { Model } from "./model";
 
-export class Selection implements Model {
-	  id: number;
+export class Selection extends Model {
     company_id: number;
     remarks   : string;
     documents_password: string;
