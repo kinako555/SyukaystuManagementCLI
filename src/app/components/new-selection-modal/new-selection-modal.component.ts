@@ -11,6 +11,7 @@ import { SelectionStatus } from "../../models/selection-status";
 
 import { SelectionHttpService } from "../../servicese/selection-http.service";
 import { CompanyHttpService } from "../../servicese/company-http.service";
+import { Choicese } from 'src/app/models/choicese';
 
 @Component({
   selector: 'app-new-selection-modal',
@@ -25,16 +26,20 @@ export class NewSelectionModalComponent implements OnInit{
   selectionSubject: Subject<Company> = new Subject();
   createdValues   : Object = {};
   selectionState : Observable<Company> = this.selectionSubject.asObservable();
+  selectionForm: FormGroup;
+  companyForm: FormGroup;  
 
   @Output() posted = new EventEmitter();
-  @Input() company;
-  @Input() choicese;
+  @Input() company : Company;
+  @Input() choicese: Choicese;
+  @Input() forms   : Object;
 
   constructor(private activeModal: NgbActiveModal,
               private selectionHttpService: SelectionHttpService,
               private companyHttpService: CompanyHttpService) { }
 
   ngOnInit() {
+    this.setForm();
     // create_companyのレスポンスを受け取ったあとで処理
     this.selectionState.subscribe((company) => {
       this.selection.company_id = company.id;
@@ -56,6 +61,11 @@ export class NewSelectionModalComponent implements OnInit{
 
   // キャンセルボタン
   cancel() { this.activeModal.close(); }
+
+  private setForm():void {
+    this.companyForm   = this.forms['company'];
+    this.selectionForm = this.forms['selection'];
+  }
 
   // company作成
   // 作成後のidを返す

@@ -51,6 +51,7 @@ export class SelectionsComponent implements OnInit {
     const modal = this.modalService.open(NewSelectionModalComponent);
     modal.componentInstance.company  = company;
     modal.componentInstance.choicese = this.choicese;
+    modal.componentInstance.forms = this.createNewForm();
     modal.componentInstance.posted.subscribe( ($create_values) => {
       this.addCreateValues($create_values);
       this.addSelection($create_values['selection']);

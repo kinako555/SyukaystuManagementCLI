@@ -35,7 +35,7 @@ export class EditSelectionModalComponent implements OnInit {
   @Input() selection: Selection;
   @Input() company  : Company;
   @Input() choicese : Choicese;
-  @Input() forms : Object;
+  @Input() forms    : Object;
 
   constructor(private activeModal: NgbActiveModal,
               private selectionHttpService: SelectionHttpService,
