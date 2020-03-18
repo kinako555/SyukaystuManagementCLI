@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { FormBuilder } from '@angular/forms';
 
 import { NewSelectionModalComponent } from '../new-selection-modal/new-selection-modal.component';
 import { EditSelectionModalComponent } from '../edit-selection-modal/edit-selection-modal.component';
@@ -28,7 +29,9 @@ export class SelectionsComponent implements OnInit {
   constructor(private myHttpService: MyHttpService,
               private selectionHttpService: SelectionHttpService,
               private modelService : ModelService,
-              private modalService: NgbModal) { }
+              private modalService: NgbModal,
+              private fb: FormBuilder
+              ) { }
 
   ngOnInit() {
     this.getInitializeValues();
@@ -57,9 +60,12 @@ export class SelectionsComponent implements OnInit {
   // 編集作成モーダル表示
   showEditModal(selection: Selection) {
     const modal = this.modalService.open(EditSelectionModalComponent);
-    modal.componentInstance.company   = this.modelService.find(this.companies, selection.company_id);
+    let company = this.modelService.find(this.companies, selection.company_id);
+    this.createForm(company, selection);
+    modal.componentInstance.company   = Company.duplication(company);
     modal.componentInstance.choicese  = this.choicese;
-    modal.componentInstance.selection = this.modelService.find(this.selections, selection.id);
+    modal.componentInstance.selection = Selection.duplication(selection);
+    modal.componentInstance.forms = this.createForm(company, selection);
     modal.componentInstance.posted.subscribe( ($create_values) => {
       this.updateValues($create_values);
       this.updateSelection($create_values['selection']);
@@ -86,6 +92,42 @@ export class SelectionsComponent implements OnInit {
       })
   }
 
+  private createForm(company: Company, selection: Selection) :Object{
+    let forms = {};
+    forms['company'] = this.fb.group({
+      id  : company.id,
+      name: company.name,
+      kana: company.kana,
+      link: company.link,
+    });
+    forms['selection'] = this.fb.group({
+      id: selection.id,
+      documents_password: selection.documents_password,
+      season_id: selection.season_id,
+      selection_status_id: selection.selection_status_id,
+      application_way_id : selection.application_way_id,
+    });
+
+    return forms;
+  }
+
+  private createNewForm() :Object{
+    let forms = {};
+    forms['company'] = this.fb.group({
+      name: '',
+      kana: '',
+      link: '',
+    });
+    forms['selection'] = this.fb.group({
+      documents_password: '',
+      season_id: '',
+      selection_status_id: '',
+      application_way_id : '',
+    });
+
+    return forms;
+  }
+
   private addSelection(selection: Selection): void{
     this.selections.push(this.formatSelection(selection));
   }
@@ -105,8 +147,8 @@ export class SelectionsComponent implements OnInit {
   // 選択枠(select)で選択するとIDが文字列になるのでとりあえず数値に変換する
   private formatSelection(value: Selection): Selection{
     let v_selection = value;
-    v_selection.application_way_id = Number(v_selection.application_way_id);
-    v_selection.season_id = Number(v_selection.season_id);
+    v_selection.application_way_id  = Number(v_selection.application_way_id);
+    v_selection.season_id           = Number(v_selection.season_id);
     v_selection.selection_status_id = Number(v_selection.selection_status_id);
     return v_selection
   }
