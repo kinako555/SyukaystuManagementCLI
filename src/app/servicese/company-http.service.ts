@@ -29,7 +29,7 @@ export class CompanyHttpService {
   }
 
   update(company: Company): Observable<any> {
-    const uri = this.myHttpService.hostUri() + '/company/' + company.id;
+    const uri = this.myHttpService.hostUri() + '/companies/' + company.id;
     const params = {'company': company};
     return this.http.patch(uri, params)
       .pipe(

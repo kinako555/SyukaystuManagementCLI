@@ -8,10 +8,12 @@ import { ApplicationWay } from "../../models/application-way";
 import { Season } from "../../models/season";
 import { Company } from "../../models/company";
 import { SelectionStatus } from "../../models/selection-status";
+import { Choicese } from 'src/app/models/choicese';
 
 import { SelectionHttpService } from "../../servicese/selection-http.service";
 import { CompanyHttpService } from "../../servicese/company-http.service";
-import { Choicese } from 'src/app/models/choicese';
+import { InputModalService } from "../../servicese/input-modal.service";
+
 
 @Component({
   selector: 'app-new-selection-modal',
@@ -27,7 +29,7 @@ export class NewSelectionModalComponent implements OnInit{
   createdValues   : Object = {};
   selectionState : Observable<Company> = this.selectionSubject.asObservable();
   selectionForm: FormGroup;
-  companyForm: FormGroup;  
+  isSubmited: Boolean = false; // 実行ボタンを押したか TODO:別方法検証
 
   @Output() posted = new EventEmitter();
   @Input() company : Company;
@@ -36,7 +38,8 @@ export class NewSelectionModalComponent implements OnInit{
 
   constructor(private activeModal: NgbActiveModal,
               private selectionHttpService: SelectionHttpService,
-              private companyHttpService: CompanyHttpService) { }
+              private companyHttpService: CompanyHttpService,
+              private inputModalService: InputModalService) { }
 
   ngOnInit() {
     this.setForm();
@@ -54,8 +57,17 @@ export class NewSelectionModalComponent implements OnInit{
 
   // 登録ボタン
   // companyを登録する際は、登録後のcompany_idを受け取りselectionにつける
-  submit() {
-    this.createCompany();
+  onSubmit() {
+    //this.isSubmited = true;
+    if (this.selectionForm.invalid) return;
+    this.selection.setValues(this.selectionForm.value);
+    if (this.isCompany()) {
+      this.selection.company_id = this.company.id; 
+      this.createSelection();
+    } else {
+      this.company.setValues(this.selectionForm.value.companyForm);
+      this.createCompany(); 
+    }
     this.activeModal.close();
   }
 
@@ -63,8 +75,9 @@ export class NewSelectionModalComponent implements OnInit{
   cancel() { this.activeModal.close(); }
 
   private setForm():void {
-    this.companyForm   = this.forms['company'];
-    this.selectionForm = this.forms['selection'];
+    this.selectionForm = this.inputModalService.selectionForm();
+    let company = this.isCompany ? this.company : undefined;
+    this.selectionForm.addControl('companyForm', this.inputModalService.companyForm(company));
   }
 
   // company作成
@@ -89,4 +102,10 @@ export class NewSelectionModalComponent implements OnInit{
         this.posted.emit(this.createdValues);
       })
   }
+
+  get companyName() { return this.selectionForm.get('companyForm').get('name') }
+  get companyKana() { return this.selectionForm.get('companyForm').get('kana') }
+  get companyLink() { return this.selectionForm.get('companyForm').get('link') }
+  get documentsPassword() { return this.selectionForm.get('documents_password') }
+  get seasonId() { return this.selectionForm.get('season_id') }
 }

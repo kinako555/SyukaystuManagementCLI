@@ -5,7 +5,6 @@ import { FormBuilder } from '@angular/forms';
 import { NewSelectionModalComponent } from '../new-selection-modal/new-selection-modal.component';
 import { EditSelectionModalComponent } from '../edit-selection-modal/edit-selection-modal.component';
 
-
 import { Selection } from "../../models/selection";
 import { Choicese }  from "../../models/choicese";
 import { Company }   from "../../models/company";
@@ -66,7 +65,6 @@ export class SelectionsComponent implements OnInit {
     modal.componentInstance.company   = Company.duplication(company);
     modal.componentInstance.choicese  = this.choicese;
     modal.componentInstance.selection = Selection.duplication(selection);
-    modal.componentInstance.forms = this.createForm(company, selection);
     modal.componentInstance.posted.subscribe( ($create_values) => {
       this.updateValues($create_values);
       this.updateSelection($create_values['selection']);

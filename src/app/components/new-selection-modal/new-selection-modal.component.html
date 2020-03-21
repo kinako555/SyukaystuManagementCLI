@@ -1,43 +1,60 @@
-<div class="modal-header">
-  <h4>登録</h4>
-</div>
-<div class="modal-body">
-  <div [formGroup]="companyForm" novalidate>
-    <label>企業名
-      <input type="text" class="form-control" formControlName="name" [(ngModel)]=company.name />
-    </label>
-    <label>企業名(かな)
-      <input type="text" class="form-control" formControlName="kana" [(ngModel)]=company.kana />
-    </label>
-    <label>リンク
-      <input type="text" class="form-control" formControlName="link" [(ngModel)]=company.link />
-    </label>
+<form [formGroup]="selectionForm" (ngSubmit)="onSubmit()">
+  <div class="modal-header">
+    <h4>登録</h4>
   </div>
-  <div [formGroup]="selectionForm" novalidate>
+  <div class="modal-body">
+    <div *ngIf="selectionForm.invalid && (selectionForm.dirty || isSubmited)" class="alert alert-danger">
+      <div *ngIf="companyName.errors?.required">
+        企業名を入力してください。
+      </div>
+      <div *ngIf="companyKana.errors?.maxlength">
+        企業名(かな)が長すぎます。
+      </div>
+      <div *ngIf="companyLink.errors?.maxlength">
+        企業リンク先が長すぎます。
+      </div>
+      <div *ngIf="documentsPassword.errors?.maxlength">
+        書類パスワードが長すぎます。
+      </div>
+      <div *ngIf="seasonId.errors?.required">
+        応募時期を選択してください
+      </div>
+    </div>
+    <div formGroupName="companyForm">
+      <label>企業名
+        <input type="text" class="form-control" formControlName="name" />
+      </label>
+      <label>企業名(かな)
+        <input type="text" class="form-control" formControlName="kana" />
+      </label>
+      <label>リンク
+        <input type="text" class="form-control" formControlName="link" />
+      </label>
+    </div>
     <label>書類パスワード
       <input type="text" class="form-control" formControlName="documents_password" />
     </label>
     <label>応募時期
-      <select formControlName="season_id" class="form-control" [(ngModel)]=selection.season_id>
+      <select formControlName="season_id" class="form-control">
         <option value=0 selected>----------</option>
         <option *ngFor="let season of choicese.seasons" value={{season.id}}>{{season.name}}</option>
       </select>
     </label>
     <label>状況
-      <select formControlName="selection_status_id" class="form-control" [(ngModel)]=selection.selection_status_id>
+      <select formControlName="selection_status_id" class="form-control">
         <option value=0 selected>----------</option>
         <option *ngFor="let status of choicese.selectionStautses" value={{status.id}}>{{status.name}}</option>
       </select>
     </label>
     <label>応募方法
-      <select formControlName="application_way_id" class="form-control" [(ngModel)]=selection.application_way_id>
+      <select formControlName="application_way_id" class="form-control">
         <option value=0 selected>----------</option>
         <option *ngFor="let applicationWay of choicese.applicationWays" value={{applicationWay.id}}>{{applicationWay.name}}</option>
       </select>
     </label>
   </div>
-</div>
-<div class="modal-footer">
-  <button type="submit" (click)="submit()" class="btn btn-primary">登録</button>
-  <button type="button" class="btn btn-outline-danger" (click)="cancel()">閉じる</button>
-</div>
+  <div class="modal-footer">
+    <button type="submit" class="btn btn-primary">登録</button>
+    <button type="button" class="btn btn-outline-danger" (click)="cancel()">閉じる</button>
+  </div>
+</form>

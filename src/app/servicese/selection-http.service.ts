@@ -30,7 +30,7 @@ export class SelectionHttpService {
 
   //delete /selections/1
   delete(id: number): Observable<any> {
-    const uri = this.myHttpService.hostUri() + '/selection/' + id
+    const uri = this.myHttpService.hostUri() + '/selections/' + id
     return this.http.delete(uri)
       .pipe(
         retry(3),
@@ -50,7 +50,7 @@ export class SelectionHttpService {
 
   update(selection: Selection): Observable<any> {
     const params = {'selection': selection};
-    const uri = this.myHttpService.hostUri() + '/selection/' + selection.id;
+    const uri = this.myHttpService.hostUri() + '/selections/' + selection.id;
     return this.http.patch(uri, params)
       .pipe(
         retry(3),
