@@ -1,6 +1,6 @@
 
 <form>
-  <input placeholder="企業名" type="text" name="company_name"  [(ngModel)]="searchParams.company_name">
+  <input placeholder="企業名" type="text" name="company_name"  [(ngModel)]="searchParams.company_name" maxlength="50" />
   <br/>
   <label>応募時期</label>
   <select name="season" [(ngModel)]="searchParams.season_id">
