@@ -15,9 +15,9 @@ export class InputModalService {
     let kana = company !== undefined ? company.kana : '';
     let link = company !== undefined ? company.link : '';
     let form = this.fb.group({
-      name: [name, [Validators.required, Validators.maxLength(50)]],
-      kana: [kana, [Validators.maxLength(100)]],
-      link: [link, [Validators.maxLength(200)]],
+      name: [name, [Validators.required]],
+      kana: [kana, []],
+      link: [link, []],
     });;
     if (company !== undefined) form.addControl('id', new FormControl(company.id));
     return form
@@ -25,12 +25,12 @@ export class InputModalService {
 
   selectionForm(selection: Selection = undefined): FormGroup{
     let documents_password  = selection !== undefined ? selection.documents_password  : ''; 
-    let season_id           = selection !== undefined ? selection.season_id           : undefined;
-    let selection_status_id = selection !== undefined ? selection.selection_status_id : undefined;
-    let application_way_id  = selection !== undefined ? selection.selection_status_id : undefined;
+    let season_id           = selection !== undefined ? selection.season_id           : 0;
+    let selection_status_id = selection !== undefined ? selection.selection_status_id : 0;
+    let application_way_id  = selection !== undefined ? selection.selection_status_id : 0;
     
     let form= this.fb.group({
-      documents_password: [documents_password, [Validators.maxLength(20)]],
+      documents_password: [documents_password, []],
       season_id: [season_id, [Validators.required]],
       selection_status_id: selection_status_id,
       application_way_id : application_way_id,
