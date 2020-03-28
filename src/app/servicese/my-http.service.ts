@@ -47,6 +47,7 @@ export class MyHttpService {
          `body was: ${error.error}`);
     }
      // return an observable with a user-facing error message
+     alert('通信に失敗しました。');
      return throwError('Something bad happened; please try againlater.');
   };
 }

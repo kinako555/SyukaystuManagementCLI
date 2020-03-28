@@ -28,12 +28,14 @@ export class SearchSelectionsComponent implements OnInit {
   // 検索ボタン
   submit() {
     let query = "";
-
     query = this.format_params(this.searchParams);
     this.selectionHttpService.search(query)
       .subscribe((value :any)  =>{ 
         this.posted.emit(value.selections);
-      })
+      },
+      error =>{
+        console.log('error: ', error);
+      });
   }
 
   // Objをクエリ文字に変換する

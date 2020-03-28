@@ -58,18 +58,20 @@ export class EditSelectionModalComponent implements OnInit {
     this.selection.setValues(this.selectionForm.value);
     this.company.setValues(this.selectionForm.value.companyForm);
     this.setInputValues();
-    this.updateValues();
-    this.setUpdateValues();
-    this.posted.emit(this.updatedValues);
-    this.activeModal.close();
+    if (this.updateValues()) {
+      this.setUpdateValues();
+      this.posted.emit(this.updatedValues);
+      this.activeModal.close();
+    }
   }
 
   // キャンセルボタン
   cancel() { this.activeModal.close(); }
 
-  private updateValues(): void{
-    this.updateCompany();
-    this.updateSelection();
+  private updateValues(): boolean{
+    if (!this.updateCompany())   return false;
+    if (!this.updateSelection()) return false;
+    return true;
   }
 
   private setForm():void {
@@ -84,21 +86,31 @@ export class EditSelectionModalComponent implements OnInit {
 
     // company作成
   // 作成後のidを返す
-  private updateCompany(): void{
+  private updateCompany(): boolean{
     this.companyHttpService.update(this.inputValues.company)
       .subscribe((value :any) =>{ 
         console.log('updatedCompany');
         // view更新時にレスポンスを受け取れない可能性を考慮してレスポンスではなくeditCompanyを使用
-      })
+      },
+      error => {
+        console.log('error: ', error);
+        return false;
+      });
+      return true;
   }
 
   // selection作成
-  private updateSelection(): void{
+  private updateSelection(): boolean{
     this.selectionHttpService.update(this.inputValues.selection)
       .subscribe((value :any) =>{ 
         console.log('updatedSelection');
         // view更新時にレスポンスを受け取れない可能性を考慮してレスポンスではなくeditSelectionを使用
-      })
+      },
+      error => {
+        console.log('error: ', error);
+        return false;
+      });
+      return true;
   }
 
   // view更新時にレスポンスを受け取れない可能性を考慮して
