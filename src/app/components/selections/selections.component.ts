@@ -76,7 +76,10 @@ export class SelectionsComponent implements OnInit {
       .subscribe(()  =>{ 
         console.log('deleted');
         this.selections = this.modelService.delete(this.selections, selectionId);
-      })
+      },
+      error =>{
+        console.log('error: ', error);
+      });
   }
 
   private getInitializeValues() :void{
@@ -88,7 +91,10 @@ export class SelectionsComponent implements OnInit {
         this.closeIds   = value.close_ids;	
         this.selections = value.selections;
         this.companies   = value.companies;
-      })
+      },
+      error => {
+        console.log('error: ', error);
+      });
   }
 
   private createForm(company: Company, selection: Selection) :Object{
