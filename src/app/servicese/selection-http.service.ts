@@ -40,7 +40,7 @@ export class SelectionHttpService {
 
   create(selection: Selection): Observable<any> {
     const params = {'selection': selection};
-    const uri = this.myHttpService.hostUri() + '/selection';
+    const uri = this.myHttpService.hostUri() + '/selections';
     return this.http.post(uri, params)
       .pipe(
         retry(3),

@@ -18,7 +18,7 @@ export class SearchSelectionsComponent implements OnInit {
 
   ngOnInit() {
   }
-  UN_SELECTED: string = "unselected";
+  UN_SELECTED: string = "undefined";
 
   private searchParams = {
     company_name: '',
@@ -47,10 +47,11 @@ export class SearchSelectionsComponent implements OnInit {
         rtn_str = rtn_str + key + "=" + params[key] + "&";
       }
     }
+    if (rtn_str === "?") rtn_str = "";
     // 末尾の&を削除
-    if (rtn_str.match(/&/)) rtn_str.slice( 0, -1 );
+    if (rtn_str.match(/&/)) rtn_str = rtn_str.slice( 0, -1 );
 
-    return rtn_str.slice( 0, -1 );
+    return rtn_str;
   }
 
 }
