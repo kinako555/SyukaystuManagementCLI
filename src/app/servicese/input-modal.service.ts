@@ -25,9 +25,9 @@ export class InputModalService {
 
   selectionForm(selection: Selection = undefined): FormGroup{
     let documents_password  = selection !== undefined ? selection.documents_password  : ''; 
-    let season_id           = selection !== undefined ? selection.season_id           : 0;
-    let selection_status_id = selection !== undefined ? selection.selection_status_id : 0;
-    let application_way_id  = selection !== undefined ? selection.selection_status_id : 0;
+    let season_id           = selection !== undefined ? selection.season_id           : 1;
+    let selection_status_id = selection !== undefined ? selection.selection_status_id : 1;
+    let application_way_id  = selection !== undefined ? selection.application_way_id  : 1;
     
     let form= this.fb.group({
       documents_password: [documents_password, []],

@@ -27,20 +27,26 @@
     </label>
     <label>応募時期
       <select formControlName="season_id" class="form-control">
-        <option value=0 selected>----------</option>
-        <option *ngFor="let season of choicese.seasons" value={{season.id}}>{{season.name}}</option>
+        <option value=1 selected>----------</option>
+        <ng-template ngFor let-season [ngForOf]="choicese.seasons">
+          <option *ngIf="season.id != 1" value={{season.id}}>{{season.name}}</option>
+        </ng-template>
       </select>
     </label>
     <label>状況
       <select formControlName="selection_status_id" class="form-control">
-        <option value=0 selected>----------</option>
-        <option *ngFor="let status of choicese.selectionStautses" value={{status.id}}>{{status.name}}</option>
+        <option value=1 selected>----------</option>
+        <ng-template ngFor let-status [ngForOf]="choicese.selectionStautses">
+          <option *ngIf="status.id != 1" value={{status.id}}>{{status.name}}</option>
+        </ng-template>
       </select>
     </label>
     <label>応募方法
       <select formControlName="application_way_id" class="form-control">
-        <option value=0 selected>----------</option>
-        <option *ngFor="let applicationWay of choicese.applicationWays" value={{applicationWay.id}}>{{applicationWay.name}}</option>
+        <option value=1 selected>----------</option>
+        <ng-template ngFor let-applicationWay [ngForOf]="choicese.applicationWays">
+          <option *ngIf="applicationWay.id != 1" value={{applicationWay.id}}>{{applicationWay.name}}</option>
+        </ng-template>
       </select>
     </label>
   </div>

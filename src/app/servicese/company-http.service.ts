@@ -19,7 +19,7 @@ export class CompanyHttpService {
   ) { }
 
   create(company: Company): Observable<any> {
-    const uri = this.myHttpService.hostUri() + '/company';
+    const uri = this.myHttpService.hostUri() + '/companies';
     const params = {'company': company};
     return this.http.post(uri, params)
       .pipe(
