@@ -11,14 +11,10 @@
 }
 
 .modal-dialog {
-    max-width: 800px !important;
+    min-width: 800px !important;
 }
 
 .editModal > .modal-content {
-    max-width: 800px !important;
-}
-
-.test {
-    max-width: 800px;
+    min-width: 800px !important;
 }
 
