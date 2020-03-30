@@ -1,0 +1,24 @@
+.right {
+    margin: 0 0 0 auto;
+}
+
+.center {
+    margin: auto;
+}
+
+.text-left {
+    text-align: left;
+}
+
+.modal-dialog {
+    max-width: 800px !important;
+}
+
+.editModal > .modal-content {
+    max-width: 800px !important;
+}
+
+.test {
+    max-width: 800px;
+}
+
