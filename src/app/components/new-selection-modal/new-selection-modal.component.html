@@ -13,13 +13,13 @@
     </div>
     <div formGroupName="companyForm">
       <label class="mr-3">企業名
-        <input type="text" class="form-control" formControlName="name" size="30" maxlength="50" />
+        <input type="text" class="form-control" formControlName="name" size="30" maxlength="50" [readonly]= "isCompany()" />
       </label>
       <label>企業名(かな)
-        <input type="text" class="form-control" formControlName="kana" size="30"maxlength="100" />
+        <input type="text" class="form-control" formControlName="kana" size="30" maxlength="100" [readonly]= "isCompany()" />
       </label>
       <label>リンク
-        <input type="text" class="form-control" formControlName="link" size="60" maxlength="200" />
+        <input type="text" class="form-control" formControlName="link" size="60" maxlength="200" [readonly]= "isCompany()" />
       </label>
     </div>
     <label>書類パスワード

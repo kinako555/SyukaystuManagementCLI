@@ -26,7 +26,7 @@
           <td>{{ i + 1 }}</td>
           <td>{{ modelService.find_name(companies, selection.company_id) }}</td>
           <td>
-            <button class="btn btn-default">追加</button>
+            <button class="btn btn-default" (click)=showCreateModal(selection.company_id)>追加</button>
             <button class="btn btn-default">リンク</button>
           </td>
           <td>{{ modelService.find_name(choicese.seasons, selection.season_id)  }}</td>
