@@ -59,7 +59,7 @@ export class SelectionsComponent implements OnInit {
 
   // 編集作成モーダル表示
   showEditModal(selection: Selection) {
-    const modal = this.modalService.open(EditSelectionModalComponent);
+    const modal = this.modalService.open(EditSelectionModalComponent, { windowClass: 'editModal'});
     let company = this.modelService.find(this.companies, selection.company_id);
     this.createForm(company, selection);
     modal.componentInstance.company   = Company.duplication(company);

@@ -1,33 +1,46 @@
-<app-search-selections (posted)="postedSearchResult($event)" [choicese] = "choicese"></app-search-selections>
-<div>
-  <button class="btn btn-default btn-primary" (click)=showCreateModal()>追加</button>
+<div class="container col-10 center">
+  <div class="row">
+    <app-search-selections (posted)="postedSearchResult($event)" [choicese]="choicese" class="center"></app-search-selections>
+  </div>
+  <div class="row">
+    <button class="btn btn-default btn-primary mb-2 right" (click)=showCreateModal()>追加</button>
+  </div>
+  <div class="row">
+    <table class="table">
+      <thead>
+        <tr>
+          <td>No</td>
+          <td>会社名</td>
+          <td></td>
+          <td>応募時期</td>
+          <td>状況</td>
+          <td>応募方法</td>
+          <td>次の面接日</td>
+          <td>履歴書パスワード</td>
+          <td>備考</td>
+          <td></td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let selection of selections; let i=index">
+          <td>{{ i + 1 }}</td>
+          <td>{{ modelService.find_name(companies, selection.company_id) }}</td>
+          <td>
+            <button class="btn btn-default">追加</button>
+            <button class="btn btn-default">リンク</button>
+          </td>
+          <td>{{ modelService.find_name(choicese.seasons, selection.season_id)  }}</td>
+          <td>{{ modelService.find_name(choicese.selectionStautses, selection.selection_status_id) }}</td>
+          <td>{{ modelService.find_name(choicese.applicationWays,   selection.application_way_id)  }}</td>
+          <td>{{ selection.next_appointment   }}</td>
+          <td>{{ selection.documents_password }}</td>
+          <td>{{ selection.remarks }}</td>
+          <td>
+            <input type="button" (click)=showEditModal(selection) value="編集" class="mr-2">
+            <input type="button" (click)=delete(selection.id)     value="削除">
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>
-<table align="center">
-  <thead>
-    <tr>
-      <td>No</td>
-      <td>会社名</td>
-      <td>応募時期</td>
-      <td>状況</td>
-      <td>応募方法</td>
-      <td>次の面接日</td>
-      <td>履歴書パスワード</td>
-      <td>備考</td>
-      <td></td>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let selection of selections; let i=index">
-      <td>{{ i + 1 }}</td>
-      <td>{{ modelService.find_name(companies, selection.company_id) }}</td>
-      <td>{{ modelService.find_name(choicese.seasons, selection.season_id)  }}</td>
-      <td>{{ modelService.find_name(choicese.selectionStautses, selection.selection_status_id) }}</td>
-      <td>{{ modelService.find_name(choicese.applicationWays,   selection.application_way_id)  }}</td>
-      <td>{{ selection.next_appointment   }}</td>
-      <td>{{ selection.documents_password }}</td>
-      <td>{{ selection.remarks }}</td>
-      <td><input type="button" (click)=showEditModal(selection) value="編集"></td>
-      <td><input type="button" (click)=delete(selection.id)        value="削除"></td>
-    </tr>
-  </tbody>
-</table>

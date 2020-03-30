@@ -1,9 +1,7 @@
-
 <form>
-  <input placeholder="企業名" type="text" name="company_name"  [(ngModel)]="searchParams.company_name" maxlength="50" />
-  <br/>
+  <input placeholder="企業名" type="text" name="company_name"  [(ngModel)]="searchParams.company_name" maxlength="50" class="mr-5" />
   <label>応募時期</label>
-  <select name="season" [(ngModel)]="searchParams.season_id">
+  <select name="season" [(ngModel)]="searchParams.season_id" class="mr-3">
     <option value=undefined selected>----------</option>
     <ng-template ngFor let-season [ngForOf]="choicese.seasons">
       <option *ngIf="season.id != 1" value={{season.id}}>{{season.name}}</option>
