@@ -26,8 +26,10 @@
           <td>{{ i + 1 }}</td>
           <td>{{ modelService.find_name(companies, selection.company_id) }}</td>
           <td>
-            <button class="btn btn-default" (click)=showCreateModal(selection.company_id)>追加</button>
-            <button class="btn btn-default">リンク</button>
+            <fa-icon [icon]="faPlus"  class="selections-icon mr-4" (click)=showCreateModal(selection.company_id)></fa-icon>         
+            <a class="link-icon" href="{{modelService.company_link(companies, selection.company_id)}}" target="_blank">
+              <fa-icon [icon]="faClone" class="selections-icon"></fa-icon>
+            </a>
           </td>
           <td>{{ modelService.find_name(choicese.seasons, selection.season_id)  }}</td>
           <td>{{ modelService.find_name(choicese.selectionStautses, selection.selection_status_id) }}</td>
@@ -36,8 +38,8 @@
           <td>{{ selection.documents_password }}</td>
           <td>{{ selection.remarks }}</td>
           <td>
-            <input type="button" (click)=showEditModal(selection) value="編集" class="mr-2">
-            <input type="button" (click)=delete(selection.id)     value="削除">
+            <fa-icon [icon]="faPencilAlt" class="selections-icon mr-4" (click)=showEditModal(selection)></fa-icon>
+            <fa-icon [icon]="faTimes"     class="selections-icon"      (click)=delete(selection.id)></fa-icon>
           </td>
         </tr>
       </tbody>

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 
 import { SelectionValue } from "../models/selection-value";
 import { Model } from "../models/model";
+import { Company } from "../models/company";
 
 @Injectable({
   providedIn: 'root'
@@ -41,5 +42,11 @@ export class ModelService {
     });
     models[num] = model;
     return models;
+  }
+
+  //TODO: selectionにcompanyなどを持たせれうように変更
+  company_link(conpanies: Company[], id: number) :string {
+    let company = conpanies.find(v => v.id === id);
+    return company ? company.link : null;
   }
 }

@@ -13,6 +13,11 @@ import { MyHttpService } from "../../servicese/my-http.service";
 import { SelectionHttpService } from "../../servicese/selection-http.service";
 import { ModelService }  from "../../servicese/model.service";
 
+import { faPlus, 
+         faClone, 
+         faPencilAlt,
+         faTimes } from '@fortawesome/free-solid-svg-icons';
+
 @Component({
   selector: 'app-selections',
   templateUrl: './selections.component.html',
@@ -24,6 +29,13 @@ export class SelectionsComponent implements OnInit {
   selections : Selection[];
   choicese   : Choicese= new Choicese();
   companies  : Company[];
+  faPlus      = faPlus;
+  faClone     = faClone;
+  faPencilAlt = faPencilAlt;
+  faTimes     = faTimes;
+
+
+
 
   constructor(private myHttpService: MyHttpService,
               private selectionHttpService: SelectionHttpService,
