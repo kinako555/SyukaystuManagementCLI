@@ -18,3 +18,24 @@
     min-width: 800px !important;
 }
 
+.selections-icon {
+    color: gray;
+    font-size: 1.1em;
+}
+
+.selections-icon:hover {
+    color: #fecb81;
+}
+
+.selections-icon:active {
+    font-size: 1em;
+}
+
+.link-icon::before {
+    display: inline-block;
+    margin-right: .5em;
+    font-family: fontawesome;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
